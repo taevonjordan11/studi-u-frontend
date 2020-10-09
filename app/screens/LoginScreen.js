@@ -221,7 +221,7 @@ class Login extends Component {
             />
 
             <Animated.View style={styles.button}>
-              <Button title="Submit" onPress={() => this.props.navigation.navigate('HomeScreen')} />
+              <Button title="Submit" onPress={() => this.props.navigation.navigate('TabNav')} />
             </Animated.View>
           </Animated.View>
         </View>

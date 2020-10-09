@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "../screens/HomeScreen";
+import TabNav from './TabNav'
+
 
 import Login from "../screens/LoginScreen";
 
@@ -21,7 +23,7 @@ const LoginStackNavigator = (props) => {
         <LoginStack.Screen name="Login">
           {(props) => <Login {...props} loginHandler={loginHandler} />}
         </LoginStack.Screen>
-        <LoginStack.Screen name="HomeScreen" component={HomeScreen} />
+        <LoginStack.Screen name="TabNav" component={TabNav} />
       </LoginStack.Navigator>
     </NavigationContainer>
   );

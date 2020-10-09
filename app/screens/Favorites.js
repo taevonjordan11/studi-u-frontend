@@ -1,17 +1,16 @@
 import React from "react";
 import { View, Button, StyleSheet, Text } from "react-native";
 import { createBottomTabNavigator } from "react-navigation";
-import { SearchBar } from 'react-native-elements';
 
-const HomeScreen = (props) => {
+const Favorites = (props) => {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text>Favorites</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default Favorites;
 
 
 
