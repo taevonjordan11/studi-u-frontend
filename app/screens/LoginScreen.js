@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TextInput,
+  Button,
+} from "react-native";
 
 import Svg, { Image, Cirlce, ClipPath } from "react-native-svg";
 import Animated, { Easing } from "react-native-reanimated";
@@ -52,7 +59,13 @@ function runTiming(clock, value, dest) {
     state.position,
   ]);
 }
-class MusicApp extends Component {
+class Login extends Component {
+  state = {
+    email: "",
+    password: "",
+  };
+
+  onChangeText = (name) => (text) => this.setState({ [name]: text });
   constructor() {
     super();
 
@@ -118,6 +131,8 @@ class MusicApp extends Component {
     });
   }
   render() {
+    const { email, password } = this.state;
+    const { navigation, loginHandler } = this.props;
     return (
       <View
         style={{
@@ -134,7 +149,7 @@ class MusicApp extends Component {
         >
           <Svg height={height} width={width}>
             <Image
-              href={require("../assets/studio.jpg")}
+              href={require("/Users/nude.plus/Development/code/MOD5/studi-u/assets/studio.jpg")}
               width={width}
               height={height}
               preserveAspectRatio="xMidYmid slice"
@@ -190,18 +205,23 @@ class MusicApp extends Component {
             </TapGestureHandler>
 
             <TextInput
+              onChangeText={this.onChangeText("email")}
               placeholder="EMAIL"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={email}
             />
             <TextInput
+              onChangeText={this.onChangeText("password")}
               placeholder="PASSWORD"
               style={styles.textInput}
               placeholderTextColor="black"
+              secureTextEntry={true}
+              value={password}
             />
 
             <Animated.View style={styles.button}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>SIGN IN</Text>
+              <Button title="Submit" onPress={() => this.props.navigation.navigate('HomeScreen')} />
             </Animated.View>
           </Animated.View>
         </View>
@@ -209,7 +229,7 @@ class MusicApp extends Component {
     );
   }
 }
-export default MusicApp;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -253,3 +273,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0,0.2)",
   },
 });
+
+/* 
+<Text style={{ fontSize: 20, fontWeight: "bold" }}>SIGN IN</Text>
+*/

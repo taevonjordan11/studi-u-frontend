@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginStackNavigator from './app/navigation/LoginStackNavigator'
 
 import { Asset } from "expo-asset";
 import { AppLoading } from "expo";
-import StudiApp from "./app/index";
+import Login from "./app/screens/LoginScreen";
 
 function cacheImages(images) {
   return images.map((image) => {
@@ -15,6 +17,8 @@ function cacheImages(images) {
   });
 }
 export default class App extends React.Component {
+
+
   constructor() {
     super();
     this.state = {
@@ -38,7 +42,11 @@ export default class App extends React.Component {
         />
       );
     }
-    return <StudiApp />;
+
+    return (
+      
+    <LoginStackNavigator />
+    );
   }
 }
 const styles = StyleSheet.create({
