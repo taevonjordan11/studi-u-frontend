@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import {
   Container,
   Header,
@@ -14,26 +14,45 @@ import {
   Body,
   Right,
 } from "native-base";
+import BookingScreen from "./BookingScreen";
 
 export default class StudioCard extends Component {
+  state = {
+    studioArray: [],
+  };
+
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/studios")
+      .then((resp) => resp.json())
+      .then((obj) => {
+        this.setState({
+          studioArray: obj,
+        });
+      });
+  }
   render() {
-    return (
-      <Container>
-        <Header />
+    const card = this.state.studioArray.map((obj) => {
+      return (
         <Content>
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={{ uri: "https://cdn4.iconfinder.com/data/icons/characters-4/512/1-05-512.png" }} />
+                <Thumbnail
+                  source={{
+                    uri: obj.image,
+                  }}
+                />
                 <Body>
-                  <Text>Some Stuido</Text>
+                  <Text>{obj.name}</Text>
                   <Text note>Taevon Jordan</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem cardBody>
               <Image
-                source={{ uri: "https://www.gearank.com/sites/default/files/styles/large/public/field/image/home-recording-studio.jpg?itok=RGnFJgCd" }}
+                source={{
+                  uri: obj.image,
+                }}
                 style={{ height: 200, width: null, flex: 1 }}
               />
             </CardItem>
@@ -47,21 +66,32 @@ export default class StudioCard extends Component {
               <Body>
                 <Button transparent>
                   <Icon name="ios-cash" />
-                  <Text>$25 per/HR</Text>
+                  <Text>{obj.price}per/HR</Text>
                 </Button>
               </Body>
               <Right>
-              <Button transparent>
-                  <Icon active name="md-microphone" 
-                    style={{color: 'red'}}
-                  />
-                  <Text style={{color: 'red'}}>Book Now!</Text>
-                </Button>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() =>
+                      this.props.navigation.navigate("BookingScreen")
+                    }
+                    transparent
+                  >
+                    <Icon
+                      active
+                      name="md-microphone"
+                      style={{ color: "red" }}
+                    />
+                    <Text style={{ color: "red" }}>Book Now!</Text>
+                  </Button>
+                </TouchableOpacity>
               </Right>
             </CardItem>
           </Card>
         </Content>
-      </Container>
-    );
+      );
+    });
+
+    return <>{card}</>;
   }
 }

@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Button, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, Button, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { createBottomTabNavigator } from "react-navigation";
 import StudioCard from './StudioCard'
 
 const Favorites = (props) => {
   return (
-    <>
-    <StudioCard />
-    </>
+  <SafeAreaView>
+    <Text>Something</Text>
+
+  </SafeAreaView>
   );
 };
 

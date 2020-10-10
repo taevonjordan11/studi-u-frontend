@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Button, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, Button, StyleSheet, Text, SafeAreaView, ScrollView} from "react-native";
 import { createBottomTabNavigator } from "react-navigation";
 import { SearchBar } from "react-native-elements";
+import StudioCard from './StudioCard'
 
 class HomeScreen extends React.Component {
   state = {
@@ -17,6 +18,14 @@ class HomeScreen extends React.Component {
 
     return (
       <SafeAreaView>
+        <Button 
+        title=' hELLO'
+        onPress={() =>
+          this.props.navigation.navigate("BookingScreen")
+        }
+        >
+          
+        </Button>
         <SearchBar
           style={styles.searchBar}
           placeholder="Type Here..."
@@ -25,10 +34,12 @@ class HomeScreen extends React.Component {
           platform="ios"
           showCancel={true}
         />
-        <View style={styles.container}>
-          <Text>HomeScreen</Text>
-        </View>
+          <ScrollView>
+      <StudioCard />
+    </ScrollView>
+
       </SafeAreaView>
+      
     );
   }
 }
