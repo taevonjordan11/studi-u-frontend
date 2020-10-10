@@ -12,6 +12,9 @@ import Svg, { Image, Cirlce, ClipPath } from "react-native-svg";
 import Animated, { Easing } from "react-native-reanimated";
 import { TapGestureHandler, State } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Logout from "./Logout";
 
 const {
   Value,
@@ -221,7 +224,10 @@ class Login extends Component {
             />
 
             <Animated.View style={styles.button}>
-              <Button title="Submit" onPress={() => this.props.navigation.navigate('TabNav')} />
+              <Button
+                title="Submit"
+                onPress={() => this.props.navigation.navigate("TabNav")}
+              />
             </Animated.View>
           </Animated.View>
         </View>
