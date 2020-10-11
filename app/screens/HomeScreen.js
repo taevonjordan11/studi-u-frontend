@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "react-navigation";
 import { SearchBar } from "react-native-elements";
-import StudioCard from "./StudioCard";
+
 import {
   Container,
   Header,
@@ -29,6 +29,7 @@ class HomeScreen extends React.Component {
   state = {
     search: "",
     studioArray: [],
+    favortitesArray: [],
   };
 
   updateSearch = (search) => {
@@ -36,6 +37,18 @@ class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
+    this.props.navigation.addListener("focus", this.studioFetch);
+    this.studioFetch();
+  }
+
+  find = () => {
+    let filteredArray = this.state.studioArray.filter((obj) =>
+      obj.address.toLowerCase().includes(this.state.search.toLowerCase())
+    );
+    return filteredArray.map((found) => this.card());
+  };
+
+  studioFetch = () => {
     fetch("http://localhost:3000/api/v1/studios")
       .then((resp) => resp.json())
       .then((obj) => {
@@ -43,13 +56,32 @@ class HomeScreen extends React.Component {
           studioArray: obj,
         });
       });
-  }
+  };
 
-  card = () =>
-    this.state.studioArray.map((obj) => {
+  favoritePost = (id) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        studio_id: id,
+        user_id: 10,
+      }),
+    };
+
+    fetch("http://localhost:3000/api/v1/favorites", options);
+  };
+
+  find = () => {
+    let filteredArray = this.state.studioArray.filter((obj) =>
+      obj.address.toLowerCase().includes(this.state.search.toLowerCase())
+    );
+    return filteredArray.map((obj) => {
       return (
         <Content>
-          <Card>
+          <Card key={obj.id}>
             <CardItem>
               <Left>
                 <Thumbnail
@@ -59,10 +91,9 @@ class HomeScreen extends React.Component {
                 />
                 <Body>
                   <Text>{obj.name}</Text>
-                <Text note>{obj.address}</Text>
-                <Text note>{obj.address}</Text>
-                <Text note>Contact: {obj.contact}</Text>
-                <Text note>Description: {obj.description}</Text>
+                  <Text note>{obj.address}</Text>
+                  <Text note>Contact: {obj.contact}</Text>
+                  <Text note>Description: {obj.description}</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -76,7 +107,7 @@ class HomeScreen extends React.Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
+                <Button onPress={() => this.favoritePost(obj.id)} transparent>
                   <Icon active name="heart" />
                   <Text>Favorite</Text>
                 </Button>
@@ -91,9 +122,77 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity>
                   <Button
                     onPress={() =>
-                      this.props.navigation.navigate("BookingScreen", 
-                      {otherParam: obj}
-                      )
+                      this.props.navigation.navigate("BookingScreen", {
+                        otherParam: obj,
+                      })
+                    }
+                    transparent
+                  >
+                    <Icon
+                      active
+                      name="md-microphone"
+                      style={{ color: "red" }}
+                    />
+                    <Text style={{ color: "red" }}>Book Now!</Text>
+                  </Button>
+                </TouchableOpacity>
+              </Right>
+            </CardItem>
+          </Card>
+        </Content>
+      );
+    });
+  };
+
+  card = () =>
+    this.state.studioArray.map((obj) => {
+      return (
+        <Content>
+          <Card key={obj.id}>
+            <CardItem>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: obj.image,
+                  }}
+                />
+                <Body>
+                  <Text>{obj.name}</Text>
+                  <Text note>{obj.address}</Text>
+                  <Text note>{obj.address}</Text>
+                  <Text note>Contact: {obj.contact}</Text>
+                  <Text note>Description: {obj.description}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{
+                  uri: obj.image,
+                }}
+                style={{ height: 200, width: null, flex: 1 }}
+              />
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button onPress={() => this.favoritePost(obj.id)} transparent>
+                  <Icon active name="heart" />
+                  <Text>Favorite</Text>
+                </Button>
+              </Left>
+              <Body>
+                <Button transparent>
+                  <Icon name="ios-cash" />
+                  <Text>${obj.price}per/HR</Text>
+                </Button>
+              </Body>
+              <Right>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() =>
+                      this.props.navigation.navigate("BookingScreen", {
+                        otherParam: obj,
+                      })
                     }
                     transparent
                   >
@@ -113,7 +212,7 @@ class HomeScreen extends React.Component {
     });
 
   render() {
-    const { search } = this.state;
+    console.log(this.state.search);
 
     return (
       <SafeAreaView>
@@ -121,12 +220,12 @@ class HomeScreen extends React.Component {
           style={styles.searchBar}
           placeholder="Type Here..."
           onChangeText={this.updateSearch}
-          value={search}
+          value={this.state.search}
           platform="ios"
           showCancel={true}
         />
 
-        <ScrollView>{this.card()}</ScrollView>
+        <ScrollView>{this.find()}</ScrollView>
 
         {/* <ScrollView>
         <StudioCard />

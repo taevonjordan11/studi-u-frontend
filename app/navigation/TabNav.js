@@ -7,7 +7,7 @@ import Profile from "../screens/Profile";
 import HomeScreen from "../screens/HomeScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import NewStudio from "../screens/NewStudio";
-import HomeScreenNavigator from './HomeScreenNavigator'
+import HomeScreenNavigator from "./HomeScreenNavigator";
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
     >
       <Tab.Screen name="Home" component={HomeScreenNavigator} />
       <Tab.Screen name="Favorites" component={Favorites} />
-      <Tab.Screen name="NewStudio" component={NewStudio} />
+      <Tab.Screen name="Add Studio" component={NewStudio} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

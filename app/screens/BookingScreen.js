@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
 import { Container, Header, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right } from 'native-base';
+import {CalendarList} from 'react-native-calendars';
+
+const testIDs = require('./testIDs');
 
 export default class BookingScreen extends Component {
     render() {
@@ -28,10 +31,7 @@ export default class BookingScreen extends Component {
                   </CardItem>
                   <CardItem>
                     <Left>
-                      <Button  transparent textStyle={{color: '#87838B'}}>
-                        <Icon name="ios-star-half" />
-                        <Text>{this.props.route.params.otherParam.rating}</Text>
-                      </Button>
+
                     </Left>
                   </CardItem>
                   <CardItem>
@@ -43,6 +43,14 @@ export default class BookingScreen extends Component {
                         <Text>Confirm</Text>
                       </Button>
                     </Right>
+                  </CardItem>
+                  <CardItem>
+                    <Left>
+                      <Button  transparent textStyle={{color: '#87838B'}}>
+                        <Icon name="ios-star-half" />
+                        <Text>{this.props.route.params.otherParam.rating}</Text>
+                      </Button>
+                    </Left>
                   </CardItem>
                 </Card>
               </Content>
