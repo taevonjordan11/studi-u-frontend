@@ -60,6 +60,7 @@ class HomeScreen extends React.Component {
                 <Body>
                   <Text>{obj.name}</Text>
                 <Text note>{obj.address}</Text>
+                <Text note>{obj.address}</Text>
                 <Text note>Contact: {obj.contact}</Text>
                 <Text note>Description: {obj.description}</Text>
                 </Body>
