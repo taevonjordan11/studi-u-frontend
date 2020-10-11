@@ -33,6 +33,7 @@ export default class StudioCard extends Component {
   render() {
     const card = this.state.studioArray.map((obj) => {
       return (
+          
         <Content>
           <Card>
             <CardItem>

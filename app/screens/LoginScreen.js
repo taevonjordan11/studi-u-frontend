@@ -14,7 +14,6 @@ import { TapGestureHandler, State } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Logout from "./Logout";
 
 const {
   Value,
@@ -152,7 +151,7 @@ class Login extends Component {
         >
           <Svg height={height} width={width}>
             <Image
-              href={require("/Users/nude.plus/Development/code/MOD5/studi-u/assets/studio.jpg")}
+              href={require("/Users/nude.plus/Development/code/MOD5/studi-u/assets/studi_u_classic.png")}
               width={width}
               height={height}
               preserveAspectRatio="xMidYmid slice"

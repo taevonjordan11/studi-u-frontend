@@ -16,7 +16,7 @@ const HomeScreenNavigator = (props) => {
         initialRouteName="HomeScreen"
 
       >
-        <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+        <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
         <HomeStack.Screen name="BookingScreen" component={BookingScreen} />
         <HomeStack.Screen name="StudioCard" component={StudioCard} />
       </HomeStack.Navigator>
