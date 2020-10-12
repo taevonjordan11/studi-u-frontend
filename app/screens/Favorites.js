@@ -30,6 +30,11 @@ class Favorites extends React.Component {
   };
 
   componentDidMount() {
+    this.props.navigation.addListener("focus", this.favsFetch);
+    this.favsFetch();
+  }
+
+  favsFetch = () => {
     fetch("http://localhost:3000/api/v1/favorites")
       .then((resp) => resp.json())
       .then((obj) => {
@@ -37,7 +42,8 @@ class Favorites extends React.Component {
           favoritesArray: obj,
         });
       });
-  }
+  };
+
   favs = () =>
     this.state.favoritesArray.map((fav) => {
       return (

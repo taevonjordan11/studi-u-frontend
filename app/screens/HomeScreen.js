@@ -71,7 +71,8 @@ class HomeScreen extends React.Component {
       }),
     };
 
-    fetch("http://localhost:3000/api/v1/favorites", options);
+    fetch("http://localhost:3000/api/v1/favorites", options)
+    .then(() => this.props.navigation.navigate("Favorites"));
   };
 
   find = () => {
