@@ -67,7 +67,7 @@ class HomeScreen extends React.Component {
       },
       body: JSON.stringify({
         studio_id: id,
-        user_id: 10,
+        user_id: 11,
       }),
     };
 
