@@ -8,6 +8,7 @@ import {
   Button,
 } from "react-native";
 
+import {Animatable} from 'react-native-animatable'
 import Svg, { Image, Cirlce, ClipPath } from "react-native-svg";
 import Animated, { Easing } from "react-native-reanimated";
 import { TapGestureHandler, State } from "react-native-gesture-handler";
@@ -213,6 +214,7 @@ class Login extends Component {
               placeholderTextColor="black"
               value={email}
             />
+            
             <TextInput
               onChangeText={this.onChangeText("password")}
               placeholder="PASSWORD"

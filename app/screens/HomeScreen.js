@@ -71,8 +71,9 @@ class HomeScreen extends React.Component {
       }),
     };
 
-    fetch("http://localhost:3000/api/v1/favorites", options)
-    .then(() => this.props.navigation.navigate("Favorites"));
+    fetch("http://localhost:3000/api/v1/favorites", options).then(() =>
+      this.props.navigation.navigate("Favorites")
+    );
   };
 
   find = () => {
@@ -225,12 +226,7 @@ class HomeScreen extends React.Component {
           platform="ios"
           showCancel={true}
         />
-
         <ScrollView>{this.find()}</ScrollView>
-
-        {/* <ScrollView>
-        <StudioCard />
-      </ScrollView> */}
       </SafeAreaView>
     );
   }
