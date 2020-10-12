@@ -47,7 +47,12 @@ export default class BookingScreen extends Component {
             </CardItem>
             <CardItem>
               <Right>
-                <Button textStyle={{ color: "#87838B" }}>
+                <Button
+                  onPress={() =>
+                    this.props.navigation.navigate("PaymentScreen")
+                  }
+                  textStyle={{ color: "#87838B" }}
+                >
                   <Icon
                     active
                     name="ios-checkmark-circle-outline"

@@ -44,6 +44,24 @@ class Favorites extends React.Component {
       });
   };
 
+  UnfavoritePost = (id) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        studio_id: id,
+        user_id: 11,
+      }),
+    };
+
+    fetch(`http://localhost:3000/api/v1/favorites/${id}`, options).then(() =>
+      this.props.navigation.navigate("HomeScreen")
+    );
+  };
+
   favs = () =>
     this.state.favoritesArray.map((fav) => {
       return (
@@ -74,7 +92,7 @@ class Favorites extends React.Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button onPress={() => this.favoritePost(fav.id)} transparent>
+                <Button onPress={() => this.UnfavoritePost(fav.id)} transparent>
                   <Icon active name="ios-heart-dislike" />
                   <Text>Un-Favorite</Text>
                 </Button>

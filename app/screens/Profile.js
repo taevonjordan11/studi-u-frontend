@@ -6,8 +6,11 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export default class Profile extends Component {
+
+ Drawer = createDrawerNavigator();
 
   render() {
     return (
@@ -29,6 +32,7 @@ export default class Profile extends Component {
             </View>
         </View>
       </View>
+      
     );
   }
 }

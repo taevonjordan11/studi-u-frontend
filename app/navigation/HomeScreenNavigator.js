@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from '../screens/HomeScreen'
 import BookingScreen from '../screens/BookingScreen'
 import StudioCard from '../screens/StudioCard'
+import PaymentScreen from '../screens/PaymentScreen'
 
 const HomeStack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const HomeScreenNavigator = (props) => {
         <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
         <HomeStack.Screen name="BookingScreen" component={BookingScreen} />
         <HomeStack.Screen name="StudioCard" component={StudioCard} />
+        <HomeStack.Screen name="PaymentScreen" component={PaymentScreen} />
       </HomeStack.Navigator>
   );
 };
