@@ -63,10 +63,10 @@ class Favorites extends React.Component {
   };
 
   favs = () =>
-    this.state.favoritesArray.map((fav) => {
+    this.state.favoritesArray.map((fav, index) => {
       return (
-        <Content>
-          <Card key={fav.id}>
+        <Content key={index.id}>
+          <Card>
             <CardItem>
               <Left>
                 <Thumbnail

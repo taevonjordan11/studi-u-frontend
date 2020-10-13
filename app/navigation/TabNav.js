@@ -46,9 +46,13 @@ export default function App() {
         component={HomeScreenNavigator}
         options={{
           tabBarLabel: "Home",
-          tabBarColor: "dodgerblue",
+          tabBarColor: "#43ada5",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="home-variant"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -57,7 +61,7 @@ export default function App() {
         component={Favorites}
         options={{
           tabBarLabel: "Favorites",
-          tabBarColor: "green",
+          tabBarColor: "#f04e3e",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="heart" color={color} size={26} />
           ),
@@ -68,9 +72,13 @@ export default function App() {
         component={NewStudio}
         options={{
           tabBarLabel: "NewStudio",
-          tabBarColor: "red",
+          tabBarColor: "#fcca64",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="folder-plus"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -79,9 +87,13 @@ export default function App() {
         component={Profile}
         options={{
           tabBarLabel: "Profile",
-          tabBarColor: "black",
+          tabBarColor: "#43434f",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="account-circle"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
