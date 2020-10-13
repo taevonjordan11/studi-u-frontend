@@ -2,7 +2,8 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Favorites from "../screens/Favorites";
 import Profile from "../screens/Profile";
@@ -14,22 +15,22 @@ import HomeScreenNavigator from "./HomeScreenNavigator";
 const Tab = createMaterialBottomTabNavigator();
 export default function App() {
   return (
-    <Tab.Navigator 
+    <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === "Home") {
             iconName = focused ? "ios-home" : "ios-home";
-            size = 23
+            size = 26;
           } else if (route.name === "Profile") {
             iconName = focused ? "ios-list-box" : "ios-list";
-            size = 23
+            size = 26;
           } else if (route.name === "Favorites") {
             iconName = focused ? "ios-heart" : "ios-heart";
-            size = 23
+            size = 26;
           } else if (route.name === "NewStudio") {
             iconName = focused ? "ios-add" : "ios-add";
-            size = 23
+            size = 26;
           }
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -40,10 +41,50 @@ export default function App() {
         inactiveTintColor: "white",
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreenNavigator} />
-      <Tab.Screen name="Favorites" component={Favorites} />
-      <Tab.Screen name="NewStudio" component={NewStudio} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreenNavigator}
+        options={{
+          tabBarLabel: "Home",
+          tabBarColor: "dodgerblue",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          tabBarLabel: "Favorites",
+          tabBarColor: "green",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="heart" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="NewStudio"
+        component={NewStudio}
+        options={{
+          tabBarLabel: "NewStudio",
+          tabBarColor: "red",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarColor: "black",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

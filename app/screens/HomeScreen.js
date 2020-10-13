@@ -24,6 +24,7 @@ import {
   Body,
   Right,
 } from "native-base";
+import BookingScreen from "../screens/BookingScreen";
 
 class HomeScreen extends React.Component {
   state = {
@@ -220,11 +221,10 @@ class HomeScreen extends React.Component {
       <SafeAreaView>
         <SearchBar
           style={styles.searchBar}
-          placeholder="Type Here..."
+          placeholder="Search by Borough..."
           onChangeText={this.updateSearch}
           value={this.state.search}
           platform="ios"
-          showCancel={true}
         />
         <ScrollView>{this.find()}</ScrollView>
       </SafeAreaView>
