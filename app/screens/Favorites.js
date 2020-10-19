@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { Divider } from "react-native-elements";
 import { createBottomTabNavigator } from "react-navigation";
 import StudioCard from "./StudioCard";
 import {
@@ -53,7 +54,7 @@ class Favorites extends React.Component {
       },
       body: JSON.stringify({
         studio_id: id,
-        user_id: 11,
+        user_id: 13,
       }),
     };
 
@@ -66,6 +67,7 @@ class Favorites extends React.Component {
     this.state.favoritesArray.map((fav, index) => {
       return (
         <Content key={index.id}>
+          <Divider />
           <Card>
             <CardItem>
               <Left>
@@ -124,6 +126,7 @@ class Favorites extends React.Component {
               </Right>
             </CardItem>
           </Card>
+          <Divider />
         </Content>
       );
     });

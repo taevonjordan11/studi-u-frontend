@@ -28,7 +28,7 @@ export default class NewStudio extends Component {
         description: this.state.description,
         image: this.state.image,
         price: this.state.price,
-        user_id: 10,
+        user_id: 13,
       }),
     };
 
@@ -48,7 +48,6 @@ export default class NewStudio extends Component {
   };
 
   render() {
-    
     return (
       <Container>
         <Header />

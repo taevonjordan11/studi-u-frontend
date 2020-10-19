@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, Image } from "react-native";
+import { Tooltip } from "react-native-elements";
+import { Text, View, Image, TextInput } from "react-native";
 import {
   Container,
   Header,
@@ -12,13 +13,51 @@ import {
   Left,
   Body,
   Right,
+  Picker,
+  Input,
+  Item,
 } from "native-base";
 import { CalendarList } from "react-native-calendars";
 
 const testIDs = require("./testIDs");
 
 export default class BookingScreen extends Component {
+  state = {
+    hours: 0,
+    user_id: 13,
+    studio_id: this.props.route.params.otherParam.id,
+    price: this.props.route.params.otherParam.price,
+  };
+
+  onChanged(text) {
+    // code to remove non-numeric characters from text
+    this.setState({ hours: text });
+  }
+
+  bookSession = (id) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        studio_id: this.state.studio_id,
+        user_id: 13,
+        hours: this.state.hours,
+        price: this.state.price,
+      }),
+    };
+
+    fetch("http://localhost:3000/api/v1/bookings", options).then(() =>
+      this.props.navigation.navigate("Done")
+    );
+  };
+
+  
+
   render() {
+    console.log(this.state.hours);
     return (
       <Container>
         <Header />
@@ -26,7 +65,9 @@ export default class BookingScreen extends Component {
           <Card style={{ flex: 0 }}>
             <CardItem>
               <Left>
-                <Thumbnail source={{ uri: "Image URL" }} />
+                <Thumbnail
+                  source={{ uri: this.props.route.params.otherParam.image }}
+                />
                 <Body>
                   <Text>{this.props.route.params.otherParam.name}</Text>
                   <Text note>April 1, 2016</Text>
@@ -39,27 +80,31 @@ export default class BookingScreen extends Component {
                   source={{ uri: this.props.route.params.otherParam.image }}
                   style={{ height: 200, width: 200, flex: 1 }}
                 />
-                <Text>//Your text here</Text>
+                <Text>Please select your date and hours requested</Text>
               </Body>
             </CardItem>
             <CardItem>
-              <Left></Left>
+              <Left>
+                <Item>
+                  <TextInput
+                    keyboardType="numeric"
+                    onChangeText={(text) => this.onChanged(text)}
+                    value={this.state.hours}
+                    placeholder="hours"
+                  />
+                </Item>
+              </Left>
             </CardItem>
             <CardItem>
               <Right>
-                <Button
-                  onPress={() =>
-                    this.props.navigation.navigate("PaymentScreen")
-                  }
-                  textStyle={{ color: "#87838B" }}
-                >
+                <Button onPress={() => this.bookSession(this.state.id)}>
                   <Icon
                     active
                     name="ios-checkmark-circle-outline"
                     inactive
                     name="ios-checkmark-circle"
                   />
-                  <Text>Confirm</Text>
+                  <Text>Book Session</Text>
                 </Button>
               </Right>
             </CardItem>
@@ -67,7 +112,9 @@ export default class BookingScreen extends Component {
               <Left>
                 <Button transparent textStyle={{ color: "#87838B" }}>
                   <Icon name="ios-star-half" />
-                  <Text>{this.props.route.params.otherParam.rating}</Text>
+                  <Text>
+                    Rating:{this.props.route.params.otherParam.rating}Stars
+                  </Text>
                 </Button>
               </Left>
             </CardItem>

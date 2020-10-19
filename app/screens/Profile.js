@@ -1,40 +1,151 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
+import {
+  Content,
+  Card,
+  CardItem,
+  Left,
+  Right,
+  Thumbnail,
+  Body,
+  Button,
+  Icon,
+} from "native-base";
 
 export default class Profile extends Component {
   Drawer = createDrawerNavigator();
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}></View>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri:
-              "https://cdn4.iconfinder.com/data/icons/characters-4/512/1-05-512.png",
-          }}
-        />
-        <View style={styles.body}>
-          <View style={styles.bodyContent}>
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.info}>UX Designer / Mobile developer</Text>
-            <Text style={styles.description}>
-              Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
-              electram expetendis, omittam deseruisse consequuntur ius an,
-            </Text>
+  state = {
+    bookingsArray: [],
+    userInfo: [],
+  };
 
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text>Taevon Jordan</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text>Something</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/bookings")
+      .then((resp) => resp.json())
+      .then((data) => {
+        this.setState({
+          bookingsArray: data,
+        });
+      });
+
+    fetch("http://localhost:3000/api/v1/users/")
+      .then((resp) => resp.json())
+      .then((userData) => {
+        this.setState({
+          userInfo: userData,
+        });
+      });
+  }
+
+  bookedCard = () =>
+    this.state.bookingsArray.map((obj) => {
+      return (
+        <Content>
+          <Card key={obj.id}>
+            <CardItem>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: obj.studio.image,
+                  }}
+                />
+                <Body>
+                  <Text>{obj.studio.name}</Text>
+                  <Text note>{obj.studio.address}</Text>
+                  <Text note>Contact: {obj.studio.contact}</Text>
+                  <Text note>Price: ${obj.studio.price} per/hr</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{
+                  uri: obj.studio.image,
+                }}
+                style={{ height: 200, width: null, flex: 1 }}
+              />
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Body>
+                  <Button transparent>
+                    <Icon name="ios-bookmark" />
+                    <Text>Booked: {obj.studio.created_at}</Text>
+                  </Button>
+                </Body>
+              </Left>
+            </CardItem>
+          </Card>
+        </Content>
+      );
+    });
+
+  userListing = () => {
+    this.state.userInfo.map((value) => {
+      return (
+        <Content>
+          <Card key={value.id}>
+            <CardItem>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: value.image,
+                  }}
+                />
+                <Body>
+                  <Text>{value.studios.name}</Text>
+                  <Text note>{value.studios.address}</Text>
+                  <Text note>Contact: {value.studios.contact}</Text>
+                  <Text note>Description: {value.studios.description}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{
+                  uri: value.studios.image,
+                }}
+                style={{ height: 200, width: null, flex: 1 }}
+              />
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Body>
+                  <Button transparent>
+                    <Icon name="ios-cash" />
+                    <Text>${value.studios.price}per/HR</Text>
+                  </Button>
+                </Body>
+              </Left>
+            </CardItem>
+          </Card>
+        </Content>
+      );
+    });
+  };
+
+  render() {
+    console.log(this.state.userInfo);
+    return (
+      <SafeAreaView>
+        <ScrollView>
+          <Text>My Booked Sessions</Text>
+          {this.bookedCard()}
+        </ScrollView>
+        <Text>My Listings</Text>
+        {this.userListing()}
+      </SafeAreaView>
     );
   }
 }
@@ -47,8 +158,8 @@ const styles = StyleSheet.create({
   avatar: {
     width: 130,
     height: 130,
-    borderRadius: 63,
-    borderWidth: 4,
+    borderRadius: 68,
+    borderWidth: 0,
     borderColor: "white",
     marginBottom: 10,
     alignSelf: "center",
@@ -70,7 +181,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 28,
-    color: "white",
+    color: "black",
     fontWeight: "600",
   },
   info: {

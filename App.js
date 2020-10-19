@@ -50,6 +50,7 @@ export default class App extends React.Component {
     );
   }
 }
+console.reportErrorsAsExceptions = false;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

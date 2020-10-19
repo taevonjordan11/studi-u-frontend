@@ -36,6 +36,24 @@ export default class PaymentScreen extends Component {
   _setUseLiteCreditCardInput = (useLiteCreditCardInput) =>
     this.setState({ useLiteCreditCardInput });
 
+  finishPayment = (id) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        studio_id: id,
+        user_id: 13,
+      }),
+    };
+
+    fetch("http://localhost:3000/api/v1/bookings", options).then(() =>
+      this.props.navigation.navigate("HomeScreen")
+    );
+  };
+
   render() {
     return (
       <View style={s.container}>
@@ -70,7 +88,9 @@ export default class PaymentScreen extends Component {
             onChange={this._onChange}
           />
         )}
-        <Button title="Book Session" />
+        <Button onPress={()=> this.finishPayment() }
+        
+        title="Book Session" />
       </View>
     );
   }
