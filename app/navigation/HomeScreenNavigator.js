@@ -7,6 +7,7 @@ import BookingScreen from '../screens/BookingScreen'
 import StudioCard from '../screens/StudioCard'
 import PaymentScreen from '../screens/PaymentScreen'
 import Done from '../screens/Done'
+import Logout from '../screens/Logout'
 
 const HomeStack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const HomeScreenNavigator = (props) => {
         <HomeStack.Screen name="StudioCard" component={StudioCard} />
         <HomeStack.Screen name="PaymentScreen" component={PaymentScreen} />
         <HomeStack.Screen name="Done" component={Done} />
+        <HomeStack.Screen name="Logout" component={Logout} />
       </HomeStack.Navigator>
   );
 };

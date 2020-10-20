@@ -9,7 +9,7 @@ export default class NewStudio extends Component {
     address: "",
     contact: "",
     description: "",
-    image: "",
+    image: "https://www.gearank.com/sites/default/files/styles/large/public/field/image/home-recording-studio.jpg?itok=RGnFJgCd",
     rating: 0,
     price: 0,
   };
@@ -42,6 +42,7 @@ export default class NewStudio extends Component {
           image: "",
           rating: 0,
           price: 0,
+          user_id: 13
         })
       )
       .then(() => this.props.navigation.navigate("HomeScreen"));

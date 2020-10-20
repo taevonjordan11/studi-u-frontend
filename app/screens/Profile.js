@@ -22,15 +22,33 @@ import {
   Icon,
 } from "native-base";
 
+import Logout from "./Logout";
+
 export default class Profile extends Component {
   Drawer = createDrawerNavigator();
 
   state = {
     bookingsArray: [],
     userInfo: [],
+    currentUser: null
   };
 
   componentDidMount() {
+    this.props.navigation.addListener("focus", this.bookingsFetch);
+    this.bookingsFetch();
+
+    fetch("http://localhost:3000/api/v1/users")
+      .then((resp) => resp.json())
+      .then((data) => { 
+        console.log(data[0].studios);
+        this.setState({
+          userInfo: data,
+          currentUser: data[0]
+        });
+      });
+  }
+
+  bookingsFetch = () => {
     fetch("http://localhost:3000/api/v1/bookings")
       .then((resp) => resp.json())
       .then((data) => {
@@ -38,64 +56,48 @@ export default class Profile extends Component {
           bookingsArray: data,
         });
       });
+  };
 
-    fetch("http://localhost:3000/api/v1/users/")
-      .then((resp) => resp.json())
-      .then((userData) => {
-        this.setState({
-          userInfo: userData,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   Promise.all([
+  //     fetch("http://localhost:3000/api/v1/bookings"),
+  //     fetch("http://localhost:3000/api/v1/users/"),
+  //   ])
 
-  bookedCard = () =>
-    this.state.bookingsArray.map((obj) => {
-      return (
-        <Content>
-          <Card key={obj.id}>
-            <CardItem>
-              <Left>
-                <Thumbnail
-                  source={{
-                    uri: obj.studio.image,
-                  }}
-                />
-                <Body>
-                  <Text>{obj.studio.name}</Text>
-                  <Text note>{obj.studio.address}</Text>
-                  <Text note>Contact: {obj.studio.contact}</Text>
-                  <Text note>Price: ${obj.studio.price} per/hr</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Image
-                source={{
-                  uri: obj.studio.image,
-                }}
-                style={{ height: 200, width: null, flex: 1 }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Body>
-                  <Button transparent>
-                    <Icon name="ios-bookmark" />
-                    <Text>Booked: {obj.studio.created_at}</Text>
-                  </Button>
-                </Body>
-              </Left>
-            </CardItem>
-          </Card>
-        </Content>
-      );
-    });
+  //     .then(([res1, res2]) => {
+  //       return Promise.all([res1.json(), res2.json()]);
+  //     })
+  //     .then(([res1, res2]) => {
+  //       this.setState({
+  //         bookingsArray: res1,
+  //         userInfo: res2,
+  //       });
+  //     });
+  // }
 
-  userListing = () => {
+  cancelSession = (id) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        studio_id: id,
+        user_id: 13,
+      }),
+    };
+
+    fetch(`http://localhost:3000/api/v1/bookings/${id}`, options).then(() =>
+      this.bookingsFetch()
+    );
+  };
+
+  listings = () =>
     this.state.userInfo.map((value) => {
       return (
-        <Content>
-          <Card key={value.id}>
+        <Content key={value.id}>
+          <Card>
             <CardItem>
               <Left>
                 <Thumbnail
@@ -104,7 +106,7 @@ export default class Profile extends Component {
                   }}
                 />
                 <Body>
-                  <Text>{value.studios.name}</Text>
+                  <Text>{value["studios"].name}</Text>
                   <Text note>{value.studios.address}</Text>
                   <Text note>Contact: {value.studios.contact}</Text>
                   <Text note>Description: {value.studios.description}</Text>
@@ -133,18 +135,66 @@ export default class Profile extends Component {
         </Content>
       );
     });
-  };
+
+  bookedCard = () =>
+    this.state.bookingsArray.map((obj) => {
+      return (
+        <Content key={obj.id}>
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: obj.studio.image,
+                  }}
+                />
+                <Body>
+                  <Text>{obj.studio.name}</Text>
+                  <Text note>{obj.studio.address}</Text>
+                  <Text note>Contact: {obj.studio.contact}</Text>
+                  <Text note>Price: ${obj.studio.price} per/hr</Text>
+                  <Text note>Hours: {obj.hours} </Text>
+                  <Text note>Booked: {obj.created_at} </Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{
+                  uri: obj.studio.image,
+                }}
+                style={{ height: 200, width: null, flex: 1 }}
+              />
+            </CardItem>
+            <CardItem>
+              <Right>
+                <Body>
+                  <Button
+                    onPress={() => this.cancelSession(obj.id)}
+                    transparent
+                  >
+                    <Icon name="ios-remove-circle-outline" />
+                    <Text style={{ color: "red" }}>Cancel Session</Text>
+                  </Button>
+                </Body>
+              </Right>
+            </CardItem>
+          </Card>
+        </Content>
+      );
+    });
 
   render() {
-    console.log(this.state.userInfo);
+    // console.log("USER DATA", this.state.userInfo);
     return (
       <SafeAreaView>
         <ScrollView>
+          <Text>My Listing</Text>
+          {this.listings()}
           <Text>My Booked Sessions</Text>
           {this.bookedCard()}
+          <Logout />
         </ScrollView>
-        <Text>My Listings</Text>
-        {this.userListing()}
       </SafeAreaView>
     );
   }

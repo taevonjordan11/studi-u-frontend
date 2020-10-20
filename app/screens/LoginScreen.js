@@ -171,7 +171,7 @@ class Login extends Component {
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>SIGN IN</Text>
             </Animated.View>
           </TapGestureHandler>
-          {/* <Animated.View
+          <Animated.View
             style={{
               ...styles.button,
               backgroundColor: "#2E71DC",
@@ -182,7 +182,7 @@ class Login extends Component {
             <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
               SIGN UP
             </Text>
-          </Animated.View> */}
+          </Animated.View>
           <Animated.View
             style={{
               zIndex: this.textInputZindex,

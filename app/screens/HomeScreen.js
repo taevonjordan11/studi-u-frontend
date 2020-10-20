@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  RefreshControl
 } from "react-native";
 import { createBottomTabNavigator } from "react-navigation";
 import { SearchBar, Divider } from "react-native-elements";
@@ -25,6 +26,8 @@ import {
   Right,
 } from "native-base";
 import BookingScreen from "../screens/BookingScreen";
+
+
 
 class HomeScreen extends React.Component {
   state = {
@@ -84,14 +87,14 @@ class HomeScreen extends React.Component {
     return filteredArray.map((obj) => {
       return (
         
-        <Content>
+        <Content key={obj.id}>
           <Divider />
-          <Card key={obj.id}>
-            <CardItem>
+          <Card >
+            <CardItem >
               <Left>
                 <Thumbnail
                   source={{
-                    uri: obj.image,
+                    uri: obj.image !== "" ? obj.image : undefined,
                   }}
                 />
                 <Body>
@@ -99,13 +102,14 @@ class HomeScreen extends React.Component {
                   <Text note>{obj.address}</Text>
                   <Text note>Contact: {obj.contact}</Text>
                   <Text note>Description: {obj.description}</Text>
+                  <Text note>Rating: {obj.rating}</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem cardBody>
               <Image
                 source={{
-                  uri: obj.image,
+                  uri: obj.image !== "" ? obj.image : undefined,
                 }}
                 style={{ height: 200, width: null, flex: 1 }}
               />

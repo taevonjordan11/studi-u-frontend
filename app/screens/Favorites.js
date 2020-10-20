@@ -59,14 +59,14 @@ class Favorites extends React.Component {
     };
 
     fetch(`http://localhost:3000/api/v1/favorites/${id}`, options).then(() =>
-      this.props.navigation.navigate("HomeScreen")
+      this.favsFetch()
     );
   };
 
   favs = () =>
-    this.state.favoritesArray.map((fav, index) => {
+    this.state.favoritesArray.map((fav) => {
       return (
-        <Content key={index.id}>
+        <Content key={fav.id}>
           <Divider />
           <Card>
             <CardItem>

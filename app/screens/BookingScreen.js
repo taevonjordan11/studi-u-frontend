@@ -87,9 +87,9 @@ export default class BookingScreen extends Component {
               <Left>
                 <Item>
                   <TextInput
-                    keyboardType="numeric"
+                    
                     onChangeText={(text) => this.onChanged(text)}
-                    value={this.state.hours}
+                    value={String(this.state.hours)}
                     placeholder="hours"
                   />
                 </Item>
