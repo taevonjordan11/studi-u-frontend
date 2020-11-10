@@ -54,8 +54,6 @@ export default class BookingScreen extends Component {
     );
   };
 
-  
-
   render() {
     console.log(this.state.hours);
     return (
@@ -80,22 +78,19 @@ export default class BookingScreen extends Component {
                   source={{ uri: this.props.route.params.otherParam.image }}
                   style={{ height: 200, width: 200, flex: 1 }}
                 />
-                <Text>Please select your date and hours requested</Text>
+                <Text>Please select your hours requested</Text>
               </Body>
             </CardItem>
             <CardItem>
               <Left>
                 <Item>
                   <TextInput
-                    
                     onChangeText={(text) => this.onChanged(text)}
                     value={String(this.state.hours)}
                     placeholder="hours"
                   />
                 </Item>
               </Left>
-            </CardItem>
-            <CardItem>
               <Right>
                 <Button onPress={() => this.bookSession(this.state.id)}>
                   <Icon
@@ -107,6 +102,9 @@ export default class BookingScreen extends Component {
                   <Text>Book Session</Text>
                 </Button>
               </Right>
+            </CardItem>
+            <CardItem>
+              
             </CardItem>
             <CardItem>
               <Left>

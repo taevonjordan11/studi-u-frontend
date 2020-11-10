@@ -189,8 +189,8 @@ export default class Profile extends Component {
     return (
       <SafeAreaView>
         <ScrollView>
-          <Text>My Listing</Text>
-          {this.listings()}
+          {/* <Text>My Listing</Text>
+          {this.listings()} */}
           <Text>My Booked Sessions</Text>
           {this.bookedCard()}
           <Logout />
