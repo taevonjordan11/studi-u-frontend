@@ -9,8 +9,9 @@ Note: This repo houses the frontend code for Studi-U NYC. Please refer to this [
 ```bash
 cd ..
 cd studi-u-frontend
-yarn install && yarn start
-(you may also use npm in place of yarn)
+yarn install && yarn start 
+        or
+npm i && npm start
 ```
 
 
